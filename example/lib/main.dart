@@ -28,13 +28,21 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation _animation;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animation = Tween<double>(begin: 0, end: 100).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override
@@ -44,11 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Container(
-          height: 300,
-          width: 300,
-          child: CustomPaint(
-            foregroundPainter: CircularPainter(),
+        child: CustomPaint(
+          foregroundPainter: CircularPainter(),
+          child: Container(
+            height: 300,
+            width: 300,
+            child: Center(child: Text('Next')),
           ),
         ),
       ),
