@@ -6,13 +6,16 @@ import 'package:flutter/material.dart';
 class CircularPainter extends CustomPainter{
 
 
+  CircularPainter({this.animation});
 
+  final strokeCircle = 20.0;
+   double? animation;
 
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint circule =  Paint()
-        ..strokeWidth = 5
+        ..strokeWidth = strokeCircle
         ..color = Colors.black
         ..style = PaintingStyle.stroke;
     Offset center = Offset(size.width / 2, size.height / 2);
@@ -21,12 +24,12 @@ class CircularPainter extends CustomPainter{
 
     // paint the animation
     Paint animationArc = Paint()
-    ..strokeWidth = 5
+    ..strokeWidth = strokeCircle
     ..color = Colors.orange
     ..style = PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;
 
-    double angle = 2 * pi * (20 / 100);
+    double angle = 2 * pi * ((animation ?? 0.0) / 100);
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), pi / 2, angle, false, animationArc);
   }
 
