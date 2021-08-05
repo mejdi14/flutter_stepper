@@ -1,42 +1,27 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
-class CircularPainter extends CustomPainter{
-
-
-  CircularPainter({this.animation});
-
-  final strokeCircle = 20.0;
-   double? animation;
-
-
+class OpenPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint circule =  Paint()
-        ..strokeWidth = strokeCircle
-        ..color = Colors.black
-        ..style = PaintingStyle.stroke;
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double radius = 150;
-    canvas.drawCircle(center, radius, circule);
+    final height = size.height;
+    final width = size.width;
+    print('width : $width height: $height');
+    var paint1 = Paint()
+      ..color = Color(0xff000000)
+      ..style = PaintingStyle.fill;
 
-    // paint the animation
-    Paint animationArc = Paint()
-    ..strokeWidth = strokeCircle
-    ..color = Colors.orange
-    ..style = PaintingStyle.stroke
-    ..strokeCap = StrokeCap.round;
-
-    double angle = 2 * pi * ((animation ?? 0.0) / 100);
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), pi / 2, angle, false, animationArc);
+    //a circle
+    //size =Size(size.width - 100, size.height - 100);
+    var centerY = height * .5 ,
+        centerX = width * .5 ,
+        offset = 50 ,
+        speed = height * .001 ,
+        baseRadius = 50 + math.sin(math.pi * 2) * offset;
+    canvas.drawCircle(Offset(centerX, centerY), 20, paint1);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    throw UnimplementedError();
-    return true;
-  }
-
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

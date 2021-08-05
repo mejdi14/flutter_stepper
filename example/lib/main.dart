@@ -1,3 +1,4 @@
+import 'package:example/circular_painter.dart';
 import 'package:flutter/material.dart';
 
 import 'circle_progress_bar.dart';
@@ -79,10 +80,21 @@ class _ProgressCardState extends State<ProgressCard> with TickerProviderStateMix
             padding: const EdgeInsets.all(20.0),
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              child: CircleProgressBar(
-                backgroundColor: background,
-                foregroundColor: foreground,
-                value: this.progressPercent,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleProgressBar(
+                    backgroundColor: Color(0x22D4D6DA),
+                    foregroundColor: Colors.black,
+                    value: this.progressPercent,
+                  ),
+                  Container(
+                    width: 50,
+                    child: CustomPaint(
+                      painter: OpenPainter(),
+                    ),
+                  )
+                ],
               ),
               onTap: () {
 
@@ -103,7 +115,6 @@ class _ProgressCardState extends State<ProgressCard> with TickerProviderStateMix
             ),
           ),
         ),
-        Text("${this.progressPercent * 100}%"),
       ],
     );
   }
