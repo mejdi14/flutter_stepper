@@ -34,7 +34,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("Animated Circle Progress"),
+        title: Text("Animated Circle"),
       ),
       body: Center(
         child: ProgressCard(),
@@ -48,7 +48,8 @@ class ProgressCard extends StatefulWidget {
   _ProgressCardState createState() => _ProgressCardState();
 }
 
-class _ProgressCardState extends State<ProgressCard> with TickerProviderStateMixin{
+class _ProgressCardState extends State<ProgressCard>
+    with TickerProviderStateMixin {
   double progressPercent = 0;
   late AnimationController controller;
   late Animation sizeAnimation;
@@ -57,7 +58,6 @@ class _ProgressCardState extends State<ProgressCard> with TickerProviderStateMix
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -97,20 +97,22 @@ class _ProgressCardState extends State<ProgressCard> with TickerProviderStateMix
                 ],
               ),
               onTap: () {
-
-                final updated = ((this.progressPercent + 0.1).clamp(0.0, 1.0) *
-                    100);
+                final updated =
+                    ((this.progressPercent + 0.1).clamp(0.0, 1.0) * 100);
                 print('update : $updated');
                 controller = AnimationController(
                     duration: const Duration(milliseconds: 500), vsync: this);
-                sizeAnimation =  Tween<double>(begin: this.progressPercent, end: (updated.round() / 100)).animate(controller)..addListener(() {
-                  setState(() {
-                    this.progressPercent = sizeAnimation.value;
-                  });
-                });
+                sizeAnimation = Tween<double>(
+                        begin: this.progressPercent,
+                        end: (updated.round() / 100))
+                    .animate(controller)
+                      ..addListener(() {
+                        setState(() {
+                          this.progressPercent = sizeAnimation.value;
+                        });
+                      });
                 controller.forward();
                 print(this.progressPercent);
-
               },
             ),
           ),
@@ -119,4 +121,3 @@ class _ProgressCardState extends State<ProgressCard> with TickerProviderStateMix
     );
   }
 }
-
